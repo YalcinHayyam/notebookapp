@@ -14,7 +14,7 @@
 - ardından
 - cd client npm start
 - yapmanız yeterlidir 
-
+- Notlar notebooks klasörü içerisine kaydolur 
 - Geçikme için özür dilerim çok fazla zamanım yoktu yoğunluktan çok uğraşamadım
 - sorun eksik vs olabilir tekrardan kusura bakmayın
 - iyi günler dilerim
