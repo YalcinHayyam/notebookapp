@@ -83,7 +83,6 @@ class App extends React.Component {
 
 
     // Text Area değişikliğinin yakalanması ve ayarlamalar
-    // Biraz kötü oldu kusura bakmayın 
     handleOnChange = (e) => {
         e.preventDefault()
         this.setState({ area: e.target.value })
