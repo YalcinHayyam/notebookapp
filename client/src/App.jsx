@@ -36,6 +36,13 @@ class App extends React.Component {
     // Kayedtme ve sunucuya gönderme işlemi
     save = (e) => {
         e.preventDefault()
+
+        this.setState((state) => {
+            var data = state.notes
+            data[state.selectedIndex].content = state.area
+            // data[state.selectedIndex].content = e.target.value
+            return { notes: data }
+        })
         // ------------------------------------------- axios.post('http://localhost:4000', this.state.notes[this.state.selectedIndex])
         var tempGuard = this.state.notes.filter(note => note.id != "temp_id_xxx")
         axios.post('http://localhost:4000', { noteList: tempGuard })

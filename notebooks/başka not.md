@@ -1,0 +1,1 @@
+başka bi not daha
