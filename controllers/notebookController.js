@@ -34,6 +34,7 @@ router.post('/', (req, res, next) => {
     // -----------------------------------console.log(content)
     
     // Body den gelen objeyi alma
+    console.log(req.body)
     var {noteList} = req.body
     // ------------------------------------// var noteList = Array.of(noteList);
     // ------------------------------------var noteArray =  Object.values(noteList)

@@ -53,6 +53,14 @@ class App extends React.Component {
         // index alma ve atama
         var note = this.state.notes.find(n => n.id == id)
         var index = this.state.notes.indexOf(note)
+
+
+        this.setState((state) => {
+            var data = state.notes
+            data[state.selectedIndex].content = state.area
+            // data[state.selectedIndex].content = e.target.value
+            return { notes: data }
+        })
         // state yönetimi
         this.setState((state) => { return { area: state.notes[index].content, selectedIndex: index } })
     }
@@ -60,18 +68,28 @@ class App extends React.Component {
 
 
 
+    // // Text Area değişikliğinin yakalanması ve ayarlamalar
+    // // Biraz kötü oldu kusura bakmayın 
+    // handleOnChange = (e) => {
+    //     e.preventDefault()
+    //     this.setState((state) => {
+    //         var data = state.notes
+    //         data[state.selectedIndex].content = state.area
+    //         // data[state.selectedIndex].content = e.target.value
+    //         return { area: e.target.value, notes: data }
+    //     })
+    //     // console.log(this.state.notes[this.state.selectedIndex].content)
+    // }
+
+
     // Text Area değişikliğinin yakalanması ve ayarlamalar
     // Biraz kötü oldu kusura bakmayın 
     handleOnChange = (e) => {
         e.preventDefault()
-        this.setState((state) => {
-            var data = state.notes
-            data[state.selectedIndex].content = state.area
-            // data[state.selectedIndex].content = e.target.value
-            return { area: e.target.value, notes: data }
-        })
+        this.setState({ area: e.target.value })
         // console.log(this.state.notes[this.state.selectedIndex].content)
     }
+
 
     // Yeni notun oluşturulması ve ayarlamalar
     create = (e) => {
@@ -87,7 +105,7 @@ class App extends React.Component {
                 state.selectedIndex = state.notes.length
                 state.area = ""
                 // yeni not için ayarlamalar ve hazırlıklar
-                return state.notes = [...state.notes, { id: uuid.v4(), doc: state.newNote +".md", content: "" }]
+                return state.notes = [...state.notes, { id: uuid.v4(), doc: state.newNote + ".md", content: "" }]
 
             }
             )
@@ -117,7 +135,7 @@ class App extends React.Component {
                 <div className="row">
                     <div className="col">
                         <div className="row">
-                            <h5 class="card-title">Yeni Not</h5>
+                            <h5 className="card-title">Yeni Not</h5>
                             <br />
                             {/* Yeni not adı input */}
                             <input type="text" placeholder="Not adı giriniz" className="form-control" style={{ width: 200 }} value={this.state.newNote} onChange={(e) => this.setState({ newNote: e.target.value })} />
@@ -127,7 +145,7 @@ class App extends React.Component {
                         <br />
 
                         <div className="row">
-                            <h5 class="card-title">Notlar</h5>
+                            <h5 className="card-title">Notlar</h5>
 
                             {/* Her not için buton oluşturma */}
                             {this.state.notes.map((note, index) => <Item changeSelected={this.changeSelected} key={index} id={note.id} note={note} />)}
@@ -135,12 +153,12 @@ class App extends React.Component {
                     </div>
                     <div className="col">
                         {/* Text Area */}
-                        <h5 class="card-title">Not İçeriği</h5>
+                        <h5 className="card-title">Not İçeriği</h5>
                         <textarea className="form-control" placeholder="Notunuzu giriniz" style={{ width: 300 }} onChange={(e) => this.handleOnChange(e)} name="" id="" cols="20" value={this.state.area} rows="10"></textarea>
                     </div>
                     <div className="col">
                         {/* Kaydetme butonu */}
-                        <h5 class="card-title">Kaydet</h5>
+                        <h5 className="card-title">Kaydet</h5>
                         <button className="btn btn-success" style={{ width: 300 }} onClick={(e) => this.save(e)}>Kaydet</button>
                     </div>
                 </div>
