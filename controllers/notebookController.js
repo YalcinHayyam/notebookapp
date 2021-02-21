@@ -54,6 +54,7 @@ router.post('/', (req, res, next) => {
             fs.writeFileSync(path.join(dir, note.doc), note.content, 'utf-8')
         })
     }
+    res.end()
     // --------------------------------------res.redirect("getNotes")
     // --------------------------------------console.log(req.body.noteList)
 
