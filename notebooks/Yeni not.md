@@ -1,1 +1,1 @@
-veli ahmet hasan ali
+data undefined mı

@@ -1,6 +1,8 @@
 // gerekli kütüphaneler
 import React from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import * as noteActions from './redux/actions/noteActions'
+import { bindActionCreators } from 'redux'
 import * as uuid from 'uuid'
 import Item from './components/Item'
 class App extends React.Component {
@@ -17,21 +19,19 @@ class App extends React.Component {
     }
     // Objeler yerleşince oluşacak işlemler verinin sunucudan getirilmesi ve state in doldurulması
     componentDidMount = () => {
-        axios.get('http://localhost:4000').then(res => {
+        this.props.actions.getNotes().then(() => {
             // Boş dizi koruması
-            if (res.data.length > 0) {
+            if (this.props.notes.length > 0) {
                 this.setState(() => {
-                    console.log(res.data)
                     return {
-                        notes: res.data,
+                        notes: this.props.notes,
                     }
                 })
             }
-        }).then(() =>
             this.setState((state) => {
                 return { area: state.notes[0].content }
             })
-        )
+        })
     }
     // Kayedtme ve sunucuya gönderme işlemi
     save = (e) => {
@@ -45,7 +45,7 @@ class App extends React.Component {
         })
         // ------------------------------------------- axios.post('http://localhost:4000', this.state.notes[this.state.selectedIndex])
         var tempGuard = this.state.notes.filter(note => note.id != "temp_id_xxx")
-        axios.post('http://localhost:4000', { noteList: tempGuard })
+        this.props.actions.createNote(tempGuard)
 
         // --------------------------------------------console.log(typeof (tempGuard))
         // --------------------------------------------console.log(this.state)
@@ -173,4 +173,27 @@ class App extends React.Component {
     }
 
 }
-export default App
+
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        notes: state.notes
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: {
+            getNotes: bindActionCreators(noteActions.getNotes, dispatch),
+            createNote: bindActionCreators(noteActions.createNote, dispatch)
+
+        }
+    }
+}
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+

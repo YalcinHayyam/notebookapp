@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
    
     // null koruması
      if (noteList !=null) {
-       
+       console.log("fonksiyon içi", noteList)
         // her nottaki değişikliğin güncellenmesi veya yeni not oluşturlduğunda eklenmesi
         noteList.map(note => {
             // ------------------------------console.log("note", note)
